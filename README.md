@@ -9,70 +9,66 @@
 
 Decentralized, open-source (MIT), C/C++ package manager.
 
-- Homepage: https://conan.io/
-- Github: https://github.com/conan-io/conan
-- Docs: https://docs.conan.io
-- Slack: https://cpplang.slack.com (#conan channel. Please, click [here](https://join.slack.com/t/cpplang/shared_invite/zt-1snzdn6rp-rOUxF3166oz1_11Tr5H~xg) to get an invitation)
-- Twitter: https://twitter.com/conan_io
-- Blog: https://blog.conan.io
-- Security reports: https://jfrog.com/trust/report-vulnerability
-
+-   Homepage: https://conan.io/
+-   Github: https://github.com/conan-io/conan
+-   Docs: https://docs.conan.io
+-   Slack: https://cpplang.slack.com (#conan channel. Please, click [here](https://join.slack.com/t/cpplang/shared_invite/zt-1snzdn6rp-rOUxF3166oz1_11Tr5H~xg) to get an invitation)
+-   Twitter: https://twitter.com/conan_io
+-   Blog: https://blog.conan.io
+-   Security reports: https://jfrog.com/trust/report-vulnerability
 
 Conan is a package manager for C and C++ developers:
 
-- It is fully decentralized. Users can host their packages on their servers, privately. Integrates with Artifactory and Bintray.
-- Portable. Works across all platforms, including Linux, OSX, Windows (with native and first-class support, WSL, MinGW),
-  Solaris, FreeBSD, embedded and cross-compiling, docker, WSL
-- Manage binaries. It can create, upload and download binaries for any configuration and platform,
-  even cross-compiling, saving lots of time in development and continuous integration. The binary compatibility can be configured
-  and customized. Manage all your artifacts in the same way on all platforms.
-- Integrates with any build system, including any proprietary and custom one. Provides tested support for major build systems
-  (CMake, MSBuild, Makefiles, Meson, etc).
-- Extensible: Its Python-based recipes, together with extension points allow for great power and flexibility.
-- Large and active community, especially in GitHub (https://github.com/conan-io/conan) and Slack (https://cppalliance.org/slack/ #conan channel).
-  This community also creates and maintains packages in ConanCenter and Bincrafters repositories in Bintray.
-- Stable. Used in production by many companies, since 1.0 there is a commitment not to break package recipes and documented behavior.
-
+-   It is fully decentralized. Users can host their packages on their servers, privately. Integrates with Artifactory and Bintray.
+-   Portable. Works across all platforms, including Linux, OSX, Windows (with native and first-class support, WSL, MinGW),
+    Solaris, FreeBSD, embedded and cross-compiling, docker, WSL
+-   Manage binaries. It can create, upload and download binaries for any configuration and platform,
+    even cross-compiling, saving lots of time in development and continuous integration. The binary compatibility can be configured
+    and customized. Manage all your artifacts in the same way on all platforms.
+-   Integrates with any build system, including any proprietary and custom one. Provides tested support for major build systems
+    (CMake, MSBuild, Makefiles, Meson, etc).
+-   Extensible: Its Python-based recipes, together with extension points allow for great power and flexibility.
+-   Large and active community, especially in GitHub (https://github.com/conan-io/conan) and Slack (https://cppalliance.org/slack/ #conan channel).
+    This community also creates and maintains packages in ConanCenter and Bincrafters repositories in Bintray.
+-   Stable. Used in production by many companies, since 1.0 there is a commitment not to break package recipes and documented behavior.
 
 This is the **developer/maintainer** documentation. For user documentation, go to https://docs.conan.io
-
 
 ## Setup
 
 You can run Conan from source in Windows, MacOS, and Linux:
 
-- **Install pip following** [pip docs](https://pip.pypa.io/en/stable/installation/).
+-   **Install pip following** [pip docs](https://pip.pypa.io/en/stable/installation/).
 
-- **Clone Conan repository:**
+-   **Clone Conan repository:**
 
-  ```bash
-  $ git clone https://github.com/conan-io/conan.git conan-io
-  ```
+    ```bash
+    $ git clone https://github.com/conan-io/conan.git conan-io
+    ```
 
-  > **Note**: repository directory name matters, some directories are known to be problematic to run tests (e.g. `conan`). `conan-io` directory name was tested and guaranteed to be working.
+    > **Note**: repository directory name matters, some directories are known to be problematic to run tests (e.g. `conan`). `conan-io` directory name was tested and guaranteed to be working.
 
-- **Install in editable mode**
+-   **Install in editable mode**
 
-  ```bash
-  $ cd conan-io && sudo pip install -e .
-  ```
+    ```bash
+    $ cd conan-io && sudo pip install -e .
+    ```
 
-  If you are in Windows, using ``sudo`` is not required. Some Linux distros won't allow you to put Python packages in editable mode in the root Python installation, and creating a virtual environment ``venv`` first, is mandatory.
+    If you are in Windows, using `sudo` is not required. Some Linux distros won't allow you to put Python packages in editable mode in the root Python installation, and creating a virtual environment `venv` first, is mandatory.
 
-- **You are ready, try to run Conan:**
+-   **You are ready, try to run Conan:**
 
-  ```bash
-  $ conan --help
+    ```bash
+    $ conan --help
 
-  Consumer commands
-    install    Installs the requirements specified in a recipe (conanfile.py or conanfile.txt).
-    ...
+    Consumer commands
+      install    Installs the requirements specified in a recipe (conanfile.py or conanfile.txt).
+      ...
 
-    Conan commands. Type "conan <command> -h" for help
-  ```
+      Conan commands. Type "conan <command> -h" for help
+    ```
 
 ## Contributing to the project
-
 
 Feedback and contribution are always welcome in this project.
 Please read our [contributing guide](https://github.com/conan-io/conan/blob/develop2/.github/CONTRIBUTING.md).
@@ -80,8 +76,88 @@ Also, if you plan to contribute, please add some testing for your changes. You c
 tests guidelines section](https://github.com/conan-io/conan/blob/develop2/test/README.md) for
 some advice on how to write tests for Conan.
 
-### Running the tests
+### Dependencies
 
+Before running tests, you'll need to install various development tools that the Conan test suite requires. The tests expect specific versions of these tools to be available.
+
+### Required Tools and Versions
+
+The following tools are required by the test suite. You can install them system-wide or configure custom paths in a `test/conftest_user.py` file:
+
+**Build Tools:**
+
+-   **CMake**: 3.15.7, 3.19.7, 3.23.5, 3.27.9, 4.0.0-rc3 (minimum: 3.15)
+-   **Ninja**: 1.10.2 or later
+-   **Meson**: Any recent version (install via `pip install meson`)
+-   **Bazel**: 6.5.0, 7.4.1, 8.0.0
+
+**Platform-specific Tools:**
+
+-   **macOS**: Xcode, XcodeGen, autotools (autoconf, automake, libtool), make, zlib, emscripten
+-   **Windows**: Visual Studio 2017/2019/2022, pkg-config, MinGW/MSYS2
+-   **Linux**: GCC/Clang, autotools, pkg-config
+
+**Optional Tools** (tests will be skipped if not available):
+
+-   **Emscripten** (emcc): For WebAssembly tests
+-   **Android NDK**: For Android cross-compilation tests
+-   **QBS**: 2.6.0 for QBS build system tests
+-   **Premake**: 5.0.0 for Premake build system tests
+
+### Installation Examples
+
+**macOS (using Homebrew):**
+
+```bash
+# Install basic development tools
+brew install cmake ninja meson autoconf automake libtool make zlib xcodegen emscripten
+
+# Install multiple CMake versions (for comprehensive testing)
+# You may need to install older versions manually or via the test setup scripts
+```
+
+**Ubuntu/Debian:**
+
+```bash
+# Install basic tools
+sudo apt-get update
+sudo apt-get install build-essential cmake ninja-build python3-pip autoconf automake libtool pkg-config
+
+# Install Meson
+pip3 install meson
+
+# Install Bazel (example for latest version)
+# See https://bazel.build/install for platform-specific instructions
+```
+
+**Windows:**
+
+```bash
+# Using Chocolatey
+choco install cmake ninja pkgconfiglite
+
+# Install Visual Studio with C++ workload
+# Install MSYS2 for Unix-like environment
+# See the GitHub Actions workflows for detailed setup examples
+```
+
+### Custom Tool Configuration
+
+If you have tools installed in non-standard locations or want to skip certain tests, create a `test/conftest_user.py` file:
+
+```python
+# Example conftest_user.py
+tools_locations = {
+    'cmake': {
+        "default": "3.19",
+        "3.19": {"path": {"Darwin": "/opt/cmake/3.19/bin"}},
+    },
+    'meson': {"disabled": True},  # Skip meson tests
+    'bazel': {"disabled": True},  # Skip bazel tests
+}
+```
+
+## Running the tests
 
 **Install Python requirements**
 
@@ -107,9 +183,8 @@ $ set PYTHONPATH=.
 ```
 
 Conan test suite defines and configures some required tools (CMake, Ninja, etc) in the
-``conftest.py`` and allows to define a custom ``conftest_user.py``.
+`conftest.py` and allows to define a custom `conftest_user.py`.
 Some specific versions, like cmake>=3.15 are necessary.
-
 
 You can run the tests like this:
 
@@ -117,7 +192,7 @@ You can run the tests like this:
 $ python -m pytest .
 ```
 
-A few minutes later it should print ``OK``:
+A few minutes later it should print `OK`:
 
 ```bash
 ............................................................................................
@@ -133,7 +208,7 @@ To run specific tests, you can specify the test name too, something like:
 $ python -m pytest test/functional/command/export_test.py::TestRevisionModeSCM::test_revision_mode_scm -s
 ```
 
-The `-s` argument can be useful to see some output that otherwise is captured by *pytest*.
+The `-s` argument can be useful to see some output that otherwise is captured by _pytest_.
 
 Also, you can run tests against an instance of Artifactory. Those tests should add the attribute
 `artifactory_ready`.
